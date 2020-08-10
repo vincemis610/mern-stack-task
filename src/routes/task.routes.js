@@ -1,21 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
+// === LLAMAR AL MODELO TASK === //
 const Task = require('../models/task');
 
+// === OBTENER TODAS LAS TAREAS === //
 router.get('/', async (req, res) => {
     const tasks = await Task.find();
-    console.log(tasks)
     res.json(
         tasks
     );
 });
 
+// === OBTENER UNA TAREA === //
 router.get('/:id', async (req, res) => {
     const task = await Task.findById(req.params.id);
     res.json(task)
 })
 
+// === AGREGAR UNA TAREA === //
 router.post('/', async (req, res) =>{
     const {title, description} = req.body;
     const task = new Task({ title, description});
@@ -24,6 +27,7 @@ router.post('/', async (req, res) =>{
     res.json({ msg: 'Task Saved'})
 });
 
+// === ACTUALIZAR UNA TAREA === //
 router.put('/:id', async (req, res) => {
     const { title, description } = req.body;
     const newTask = {title, description};
@@ -31,6 +35,7 @@ router.put('/:id', async (req, res) => {
     res.json({ msg: 'Task updated'})
 });
 
+// === ELIMINAR UNA TAREA === //
 router.delete('/:id', async (req, res) => {
     await Task.findByIdAndRemove(req.params.id);
     res.json({ msg: 'Task deletd'})

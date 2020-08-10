@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 
+// === LLAMAMOS AL ARCHIVO PARA CONECTAR A LA DB === //
 const { mongoose } = require('./database');
 
 const app = express();
@@ -22,4 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 // === BOOT SERVER === //
 app.listen(app.get('port'), () => {
     console.log(`SERVER ON PORT ${app.get('port')}`);
-})
+});
+
+// sudo nano /proc/sys/fs/inotify/max_user_watches = 524288
