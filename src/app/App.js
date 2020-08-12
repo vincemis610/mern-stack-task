@@ -8,6 +8,7 @@ class App extends Component {
             title: '',
             description: '',
             _id: '',
+            textbtn: '',
             tasks: []
         },
         this.addTask = this.addTask.bind(this);
@@ -61,6 +62,9 @@ class App extends Component {
         .then(res => res.json())
         .then(data => {
             this.setState({tasks: data});
+            this.setState({
+                textbtn: 'ADD TASK'
+            })
             //console.log(this.state.tasks)
         })
     }
@@ -90,8 +94,9 @@ class App extends Component {
             this.setState({
                 title: data.title,
                 description: data.description,
-                _id: data._id
-            })
+                _id: data._id,
+                textbtn: 'EDIT TASK'
+            });
         })
     }
 
@@ -107,7 +112,7 @@ class App extends Component {
             <div>
                 <nav className="light-blue darken-4">
                     <div className="container">
-                        <a className="brand-logo" href="/">MERN Stack</a>
+                        <a className="brand-logo" href="/">Task APP</a>
                     </div>
                 </nav>
 
@@ -128,7 +133,7 @@ class App extends Component {
                                             </div>
                                         </div>
                                         <div className="row">
-                                        <button type="submit" className="btn light-blue darken-4 col s12">Add</button>
+                                        <button type="submit" className="btn light-blue darken-4 col s12">{this.state.textbtn}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -151,10 +156,10 @@ class App extends Component {
                                                     <td>{task.title}</td>
                                                     <td>{task.description}</td>
                                                     <td>
-                                                        <button className="btn red accent-4" onClick={() => this.deleteTask(task._id)} style={{margin: '5px'}}> 
+                                                        <button className="btn red darken-3" onClick={() => this.deleteTask(task._id)} style={{margin: '5px'}}> 
                                                             <i className="material-icons">delete</i>
                                                         </button>
-                                                        <button className="btn green accent-4" onClick={() => this.editTask(task._id)}>
+                                                        <button className="btn green darken-3" onClick={() => this.editTask(task._id)}>
                                                             <i className="material-icons">edit</i>
                                                         </button>
                                                     </td>
